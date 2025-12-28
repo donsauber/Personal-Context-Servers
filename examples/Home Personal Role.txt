@@ -1,0 +1,52 @@
+Home Personal Role
+
+[=Role=]
+name: Home Personal
+description: Personal home context including services, cameras, and notes.
+intent: Everyday personal use from a trusted environment.
+
+[Folders]
+description: Folders that are mounted when this Role is active.
+
+folder: PersonalContexts/
+folder: HomeSystems/
+folder: Media/
+
+notes: These folders are selected explicitly by the user when activating the Role.
+The Role does not grant access. It only declares intent and scope.
+
+[Applications]
+description: Applications available while this Role is active.
+
+app: ContextViewer
+app: CredentialManager
+app: CameraViewer
+
+notes: Applications interpret context files but do not own data.
+
+[Defaults]
+description: Optional starting behavior.
+
+start_app: ContextViewer
+remember_last_context: true
+
+[Notes]
+This Role is meant for personal, non-work usage. Business and client contexts
+should live under a separate Role to avoid accidental overlap. No security
+boundaries are enforced here; access is inherited from the filesystem and OS.
+
+Why this Role file is correct
+
+This Role file:
+
+Declares scope, not permission
+
+Names folders without assuming structure
+
+Lists apps without hard-wiring behavior
+
+Contains human-readable intent
+
+Remains meaningful even without tooling
+
+If the extension vanished, this file would still explain how the user thought about their context.
