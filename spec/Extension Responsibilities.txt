@@ -1,0 +1,62 @@
+Extension Responsibilities
+
+The Personal Context Server browser extension is a runtime lens, not an application platform. Its role is to expose, interpret, and coordinate user-owned context stored in files, without owning that data or redefining its security boundaries.
+
+The extension exists to make context usable, not to replace operating systems, servers, or storage providers.
+
+Core Responsibility
+
+The extension provides a way to load, view, and act on Context Files and related artifacts using a standard web browser. It enables intent-driven interaction with file-based context while remaining neutral about storage location, security mechanisms, and long-term persistence.
+
+The extension must never become the authority over user data. It only operates on files and folders the user explicitly grants access to.
+
+Explicit Responsibilities
+
+The extension is responsible for allowing the user to explicitly select and activate one or more root folders. These folders define the scope of visible context. The extension must never automatically discover, assume, or silently bind to folders.
+
+The extension is responsible for loading and interpreting Role files. A Role determines which folders are mounted and which applications are available within a given session. Role activation is always explicit and user-driven.
+
+The extension must support multiple active sessions across browser tabs. Each tab maintains its own active Role, mounted folders, session state, and open Context Files. No tab may leak state into another.
+
+The extension provides a shared Copper parsing service. This parser must be lightweight, tolerant of malformed files, and capable of operating on plain text without enforcing schemas. Parsing is used only when an application explicitly requests structured interpretation.
+
+The extension is responsible for discovering Context Files within mounted folders using heuristic, content-based detection. Discovery is on-demand and transient. The extension does not build permanent indexes or background databases.
+
+The extension loads and runs declarative application definitions (.flowapp.txt files). It wires Action Contracts to Interfaces, renders Frames, and routes user intent. Applications describe behavior; the extension executes it safely within browser constraints.
+
+The extension provides minimal UI affordances necessary to expose state. This includes showing the active Role, the active Context File, and available applications. The UI must remain explicit, understandable, and low-noise.
+
+Non-Responsibilities
+
+The extension does not manage authentication, authorization, or identity. Access control is inherited entirely from the storage medium and operating system.
+
+The extension does not implement encryption, key management, password vaulting, or secret storage. It operates only on files that are already accessible in plaintext at runtime.
+
+The extension does not synchronize data, replicate files, or manage versions beyond what the underlying storage already provides.
+
+The extension does not impose folder structures, naming conventions, or required schemas. Context is semantic, not structural.
+
+The extension does not auto-modify files, rewrite content, or normalize data unless explicitly instructed by a user action through an application.
+
+The extension does not operate as a background service, daemon, or always-on agent. It is active only within the browser session.
+
+Security Model
+
+Security is handled at the boundary, not within the extension. Encrypted folders, operating system permissions, removable media, and storage provider controls define access. The extension assumes that any file it can read is intentionally readable.
+
+The extension may require explicit confirmation for sensitive actions, such as copying secrets to the clipboard, but this is intent confirmation, not security enforcement.
+
+Design Constraints
+
+The extension must remain browser-native, installable without special privileges, and removable without data loss.
+
+The extension must degrade gracefully. If parsing fails, raw text must remain accessible. If an application is unavailable, context must still be viewable.
+
+The extension must prioritize transparency over automation. Users should always understand what is active, what is mounted, and what actions are available.
+
+Guiding Principle
+
+The extension does not own context.
+It serves context.
+
+Its success is measured by how easily a user can bring their context with them, understand it at a glance, and leave without residue.
