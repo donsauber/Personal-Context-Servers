@@ -1,0 +1,96 @@
+ContextViewer.flowapp.txt
+
+[=Identity=]
+app_name: Context Viewer
+version: 1.0
+description: Renders Context Files as readable, navigable pages
+role: primary context reader
+
+[ActionContract]
+action: open_context
+action: list_sections
+action: navigate_section
+action: open_link
+action: open_attachment
+action: view_raw_text
+
+[InitialFrame]
+frame: ContextPage
+
+[Frames]
+
+[Frame ContextPage]
+description: Primary view of a Context File
+menus: ContextMenu
+view: context_render
+
+[Frame RawText]
+description: Raw text view of the Context File
+menus: RawTextMenu
+view: raw_text
+
+[Menus]
+
+[Menu ContextMenu]
+item: View Raw Text -> view_raw_text
+item: Jump to Section -> list_sections
+
+[Menu RawTextMenu]
+item: Back to Context -> open_context
+
+[Interfaces]
+
+[open_context]
+implementation: copper.load_file
+source: selected_context_file
+target_frame: ContextPage
+
+[list_sections]
+implementation: copper.list_sections
+source: active_context_file
+
+[navigate_section]
+implementation: copper.scroll_to_section
+source: active_context_file
+
+[open_link]
+implementation: browser.open_url
+source: link
+
+[open_attachment]
+implementation: filesystem.open_file
+source: attachment
+
+[view_raw_text]
+implementation: filesystem.open_text
+source: active_context_file
+target_frame: RawText
+
+[RenderingRules]
+
+section_headers: visible
+preserve_order: true
+unknown_sections: render_as_text
+inline_urls: clickable
+attachments: render_as_links
+
+[Session]
+
+remember_last_context: true
+remember_scroll_position: true
+
+Why this file is right
+
+This does a few very important things correctly:
+
+It treats Context Files as pages, not data blobs
+It preserves ordering and human intent
+It never assumes schemas
+It never modifies files
+It degrades gracefully to raw text
+
+If Copper parsing fails, the file is still readable.
+If a section is unknown, it still renders.
+If tooling disappears, nothing is lost.
+
+That’s exactly the durability PCS is aiming for.
