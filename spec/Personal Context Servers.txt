@@ -1,0 +1,89 @@
+Personal Context Servers
+A Personal Context Server is a user-owned, file-based system that organizes, presents, and operates on information by context, without requiring a hosted backend.
+It is “personal” because:
+ The data lives in places the user already controls
+ There is no mandatory account, tenant, or platform lock-in
+It is a “server” because:
+ It serves structured views
+ It responds to intent
+ It coordinates actions
+ It provides continuity
+But it is not a server in the traditional sense:
+ No daemon
+ No listening port
+ No uptime requirement
+ No deployment
+The “server” is conceptual, not infrastructural.
+
+What a Personal Context Server actually is
+In concrete terms, a PCS consists of:
+A storage surface
+ This can be Google Drive, a local folder, a NAS, or a shared directory.
+Context Files
+ Plain-text Copper files that act as pages, indexes, and maps.
+Optional attachments
+ PDFs, images, spreadsheets, exports, anything relevant.
+A runtime lens
+ A browser extension or lightweight viewer that renders context, routes actions, and remembers state.
+That’s it.
+No database.
+ No schema migration.
+ No cloud service.
+
+Why the name works unusually well
+Most names in this space describe how something is built.
+This name describes what it does.
+A Personal Context Server:
+ Serves context
+ Serves memory
+ Serves navigation
+ Serves continuity
+It just does so by assembling existing pieces instead of replacing them.
+That makes the idea legible to:
+ Developers
+ Non-technical users
+ Businesses
+ IT skeptics
+Which is rare.
+
+What PCS replaces quietly
+Personal Context Servers can replace or reduce:
+Bookmark managers
+ Password note sprawl
+ Personal dashboards
+ Lightweight CRMs
+ Ad-hoc wikis
+ Small intranets
+ Simple VMS setups
+ “Life admin” apps
+Not by competing feature-for-feature — but by removing the need for the category.
+
+What PCS explicitly does not try to be
+This is important to say out loud.
+PCS is not:
+ A security authority
+ An identity provider
+ A synchronization service
+ A hosting platform
+ A database engine
+ A no-code app builder
+Those things can connect to it, but they are not required.
+PCS sits below them, not above them.
+
+The one-sentence definition (worth keeping)
+If you ever need to explain it simply, this is the sentence:
+A Personal Context Server is a file-based system that serves structured context instead of running hosted software.
+That’s the core idea, stripped of ornament.
+
+
+
+Portable Personal Context Servers
+A Personal Context Server does not need to live on a machine that is always on, always connected, or permanently trusted. Because it is composed of plain files and folders, it can be made fully portable without changing its structure or behavior.
+One simple and powerful option is to place a Personal Context Server inside an encrypted container on removable media, such as a USB drive. In this configuration, the encrypted container provides security at rest, while the Personal Context Server provides organization, continuity, and meaning. When the container is locked, the context does not exist. When it is unlocked, the context becomes available exactly as it was left.
+Because the system is file-based, nothing about it needs to be rewritten to support this. The same Context Files, attachments, and Role files function identically whether they live on cloud storage, a local disk, a network share, or removable media. The Personal Context Server simply operates on whatever folders are mounted and accessible at the time.
+This approach can be extended further by including a portable browser on the same removable media, preconfigured with the Personal Context Server extension installed. In this setup, the browser acts as a temporary runtime environment. Any compatible computer can be used as a host without requiring installation, account sign-in, or system modification. When the browser is closed and the media is removed, no context remains behind.
+Security in this model is handled entirely by the storage boundary. The encryption protecting the container determines access. The operating system enforces permissions while the container is mounted. The Personal Context Server does not duplicate authentication, key management, or encryption logic. It simply operates within the access it is given. This separation keeps the system simpler, more trustworthy, and easier to reason about.
+A portable Personal Context Server enables a form of contextual mobility that most modern systems do not support. It allows a person to carry not just files, but relationships between files, links, notes, credentials, and workflows. The context moves as a whole, intact and interpretable, without reliance on synchronization services or vendor infrastructure.
+This configuration also supports offline use, long-term archiving, and transfer between people or machines. Because all data remains in human-readable text and standard files, a Personal Context Server stored this way remains usable years later, even if the surrounding software ecosystem changes.
+In this sense, a portable Personal Context Server is not a computer in a pocket, but a carried context. It can be mounted when needed, unlocked intentionally, and dismissed completely when finished. This restores a model of computing where personal information is an artifact owned by the user, not a session granted by a platform.
+
