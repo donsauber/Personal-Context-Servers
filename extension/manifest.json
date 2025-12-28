@@ -1,1 +1,25 @@
 
+{
+  "manifest_version": 3,
+  "name": "Personal Context Servers",
+  "version": "0.1",
+  "description": "Runtime lens for Personal Context Servers",
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "action": {
+    "default_popup": "ui.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
