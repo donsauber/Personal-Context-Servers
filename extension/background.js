@@ -13,6 +13,31 @@ Each tabState entry contains:
 }
 */
 
+/*
+ROLE LOADING DESIGN NOTES
+
+A Role represents scope and availability, not security.
+
+Planned behavior:
+- Roles are plain text Copper files selected explicitly by the user.
+- A Role file declares:
+  - Which folders are mounted
+  - Which applications are available
+- Role selection is always user-driven.
+- The extension must never auto-discover or auto-activate Roles.
+
+Implementation constraints:
+- Role loading should be local-first (filesystem or Drive picker).
+- No background scanning.
+- No implicit defaults.
+- No persistence beyond the tab unless explicitly saved.
+
+Security note:
+- Role loading does NOT perform authentication or permission checks.
+- Access control is inherited from the storage provider.
+*/
+
+
 chrome.tabs.onRemoved.addListener((tabId) => {
   tabState.delete(tabId);
 });
@@ -43,6 +68,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break;
 
     case "SET_ROLE":
+      // TODO:
+  // - Validate role object structure
+  // - Load Role file from user-selected source
+  // - Mount folders declared in Role
+  // - Register available applications
       state.role = message.role;
       sendResponse({ ok: true });
       break;
