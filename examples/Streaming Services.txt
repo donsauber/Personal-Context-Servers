@@ -1,0 +1,64 @@
+Streaming Services
+
+[=Overview=]
+This context covers streaming services used on the living room Roku and other devices. It tracks which services exist, which emails they are tied to, and where to manage each account. The goal is to avoid guessing which login belongs to what.
+
+[Account]
+service: Roku
+login_email: primary@example.com
+
+primary_url: https://my.roku.com
+
+notes: Central account for the living room device. Most services are linked through this.
+
+[Account]
+service: Netflix
+login_email: netflix.family@example.com
+
+primary_url: https://www.netflix.com/account
+
+notes: Family profile setup. Kids profiles restricted.
+
+[Account]
+service: Hulu
+login_email: hulu.alt@example.com
+
+primary_url: https://www.hulu.com/account
+
+notes: Ad-free plan. Email differs from Netflix on purpose.
+
+[Account]
+service: Disney Plus
+login_email: disney.primary@example.com
+
+primary_url: https://www.disneyplus.com/account
+
+notes: Shared with extended family. Password changes affect multiple households.
+
+[Account]
+service: Amazon Prime Video
+login_email: primary@example.com
+
+primary_url: https://www.amazon.com/your-account
+
+notes: Included with Prime subscription. Managed through main Amazon account.
+
+[Links]
+Roku Device Dashboard: https://my.roku.com
+
+Netflix Account Page: https://www.netflix.com/account
+
+Hulu Account Page: https://www.hulu.com/account
+
+Disney Plus Account Page: https://www.disneyplus.com/account
+
+Amazon Account Page: https://www.amazon.com/your-account
+
+[Notes]
+Different services intentionally use different emails. This file exists to avoid password reset loops and account confusion. When adding a new streaming service, create a new Account section here and link it to the Roku if applicable.
+
+[Attachments]
+Subscription Receipts Folder: streaming_receipts/
+Screenshots of Account Settings: screenshots/
+
+This file should render cleanly in ContextViewer, expose accounts to CredentialManager, and still make perfect sense if opened in a plain text editor five years from now.
