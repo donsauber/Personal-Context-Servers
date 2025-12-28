@@ -1,0 +1,112 @@
+CameraViewer.flowapp.txt
+
+[=Identity=]
+app_name: Camera Viewer
+version: 1.0
+description: View and interact with camera streams defined in Context Files
+role: camera context interpreter
+
+[ActionContract]
+action: list_cameras
+action: view_camera
+action: open_stream
+action: open_snapshot
+action: open_camera_admin
+action: return_to_context
+
+[InitialFrame]
+frame: CameraIndex
+
+[Frames]
+
+[Frame CameraIndex]
+description: Lists all cameras found in the active Context File
+menus: CameraMenu
+view: camera_list
+
+[Frame CameraDetail]
+description: Shows details and actions for a single camera
+menus: CameraDetailMenu
+view: camera_detail
+
+[Menus]
+
+[Menu CameraMenu]
+item: View Cameras -> list_cameras
+item: Back to Context -> return_to_context
+
+[Menu CameraDetailMenu]
+item: Open Live Stream -> open_stream
+item: Open Snapshot -> open_snapshot
+item: Open Admin Page -> open_camera_admin
+item: Back to Camera List -> list_cameras
+item: Back to Context -> return_to_context
+
+[Interfaces]
+
+[list_cameras]
+implementation: copper.scan_sections
+section: Camera
+source: active_context_file
+target_frame: CameraIndex
+
+[view_camera]
+implementation: copper.open_section
+section: Camera
+target_frame: CameraDetail
+
+[open_stream]
+implementation: browser.open_url
+source: Camera.stream_url
+
+[open_snapshot]
+implementation: browser.open_url
+source: Camera.snapshot_url
+
+[open_camera_admin]
+implementation: browser.open_url
+source: Account.primary_url
+
+[return_to_context]
+implementation: app.open
+target_app: ContextViewer
+
+[RenderingRules]
+
+camera_fields_visible: name, location, notes
+stream_urls: never_embedded
+snapshots: open_on_demand
+unknown_camera_fields: render_as_text
+
+[Session]
+
+remember_last_camera: true
+
+Why this is the correct CameraViewer
+
+This file does something subtle but very important:
+
+• It interprets Camera sections, it does not own them
+• It does not assume recording, AI, or timelines
+• It never embeds streams automatically
+• It always defers to explicit user action
+
+That keeps it safe, browser-compatible, and vendor-neutral.
+
+If a stream can be opened, it opens.
+If it can’t, nothing breaks.
+The context remains intact.
+
+How this composes with ContextViewer
+
+ContextViewer answers:
+“What is in this file?”
+
+CameraViewer answers:
+“What can I do with the cameras in this file?”
+
+They never compete.
+They never duplicate data.
+They never rewrite content.
+
+That’s exactly how PCS apps should relate.
