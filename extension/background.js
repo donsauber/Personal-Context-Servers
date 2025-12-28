@@ -1,5 +1,7 @@
 // background.js
 
+import { parseCopper } from "./copperParser.js";
+
 // Per-tab runtime state
 const tabState = new Map();
 
@@ -81,6 +83,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       state.activeContextFile = message.context;
       sendResponse({ ok: true });
       break;
+
+    case "PARSE_COPPER_TEXT":
+    // Read-only Copper parsing service
+    // Input: raw text
+    // Output: parsed structure
+      try {
+        const parsed = parseCopper(message.text);
+        sendResponse({ ok: true, parsed });
+      } catch (e) {
+        sendResponse({ ok: false, error: e.message });
+      }
+      break;
+
 
     default:
       console.warn("Unknown message:", message);
