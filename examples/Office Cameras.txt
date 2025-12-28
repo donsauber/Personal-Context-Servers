@@ -1,0 +1,53 @@
+Office Cameras
+
+[=Overview=]
+This context covers all security and monitoring cameras for the office. It serves as a single reference for live streams, device locations, and management interfaces. Recording is handled by the cameras or local NVRs; this file exists to organize access and memory.
+
+[Camera]
+name: Front Entrance
+location: Main lobby, above front door
+stream_url: rtsp://192.168.1.20/live
+snapshot_url: http://192.168.1.20/snapshot
+
+notes: Wide angle lens. Strong daylight exposure. Night contrast is limited.
+
+[Camera]
+name: Parking Lot
+location: Exterior, east side
+stream_url: rtsp://192.168.1.21/live
+notes: Good night vision. Occasional false motion triggers from trees.
+
+[Camera]
+name: Warehouse Interior
+location: Ceiling above loading area
+stream_url: rtsp://192.168.1.22/live
+notes: High traffic during business hours. Used mainly for incident review.
+
+[Account]
+service: Camera Admin Interface
+login_username: admin
+primary_url: http://192.168.1.20
+
+notes: Shared admin interface for most cameras. Credentials stored separately.
+
+[Account]
+service: NVR System
+login_username: nvr_admin
+primary_url: http://192.168.1.50
+
+notes: Handles local recording and retention. Access needed for clip exports.
+
+[Links]
+Front Entrance Live View: rtsp://192.168.1.20/live
+Parking Lot Live View: rtsp://192.168.1.21/live
+Warehouse Live View: rtsp://192.168.1.22/live
+NVR Web Interface: http://192.168.1.50
+
+Router Camera Page: http://192.168.1.1
+
+[Notes]
+Camera streams are accessible only from the local network or VPN. If a stream fails to load, verify network connection before checking camera power. When adding a new camera, create a new Camera section and update the Links section for quick access.
+
+[Attachments]
+Camera Layout Diagram: office_camera_layout.pdf
+Incident Clips Folder: incident_clips/
