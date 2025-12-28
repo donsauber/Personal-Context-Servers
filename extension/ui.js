@@ -16,6 +16,31 @@ All actions must be:
 - Reversible
 */
 
+function renderParsedContext(parsed) {
+  const status = document.getElementById("status");
+  status.innerText = "";
+
+  parsed.sections.forEach(section => {
+    const header = document.createElement("h4");
+    header.innerText = section.name;
+    status.appendChild(header);
+
+    section.entries.forEach(entry => {
+      const line = document.createElement("div");
+
+      if (entry.type === "field") {
+        line.innerText = `${entry.key}: ${entry.value}`;
+      } else if (entry.type === "text") {
+        line.innerText = entry.value;
+      } else if (entry.type === "block") {
+        line.innerText = `[${entry.blockType} block]`;
+      }
+
+      status.appendChild(line);
+    });
+  });
+}
+
 
 function getCurrentTab(callback) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -40,12 +65,26 @@ document.getElementById("selectRole").onclick = () => {
 };
 
 document.getElementById("openContext").onclick = () => {
-  getCurrentTab((tab) => {
-    chrome.runtime.sendMessage({
-      type: "SET_CONTEXT",
-      context: "Example Context File"
-    }, () => {
-      document.getElementById("status").innerText = "Context opened.";
-    });
-  });
+  const exampleText = `
+[Overview]
+This is a test context.
+
+[Account]
+service: Example
+login_email: test@example.com
+`;
+
+  chrome.runtime.sendMessage(
+    {
+      type: "PARSE_COPPER_TEXT",
+      text: exampleText
+    },
+    (response) => {
+      if (response.ok) {
+        renderParsedContext(response.parsed);
+      } else {
+        document.getElementById("status").innerText = "Parse error.";
+      }
+    }
+  );
 };
